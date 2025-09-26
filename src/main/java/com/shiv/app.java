@@ -1,6 +1,6 @@
 package com.example;
 
-public class App {
+public class app {
     public static String getMessage() {
         return "Hello, Jenkins + Maven!";
     }
