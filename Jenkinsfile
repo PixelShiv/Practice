@@ -11,7 +11,7 @@ pipeline {
         stage('Checkout Code') {
             steps {
                 echo "Cloning repository..."
-                git branch: 'master', url: 'https://github.com/PixelShiv/DevOps.git'
+                git branch: 'master', url: 'https://github.com/PixelShiv/Practice.git'
             }
         }
 
