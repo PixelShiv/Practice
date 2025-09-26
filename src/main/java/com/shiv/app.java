@@ -1,4 +1,4 @@
-package com.example;
+package com.shiv;
 
 public class app {
     public static String getMessage() {
