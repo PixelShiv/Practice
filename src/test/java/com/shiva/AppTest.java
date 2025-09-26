@@ -1,4 +1,4 @@
-package com.shiv;
+package com.shiva;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
