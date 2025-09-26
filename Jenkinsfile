@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent { label 'myAgent' }
 
     environment {
         // You can set JAVA_HOME and MAVEN_HOME if needed
