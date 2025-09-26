@@ -1,12 +1,6 @@
 pipeline {
     agent { label 'myAgent' }
-
-    environment {
-        // You can set JAVA_HOME and MAVEN_HOME if needed
-        // JAVA_HOME = "/usr/lib/jvm/java-17-openjdk"
-        // PATH = "$JAVA_HOME/bin:$PATH"
-    }
-
+ 
     stages {
         stage('Checkout Code') {
             steps {
