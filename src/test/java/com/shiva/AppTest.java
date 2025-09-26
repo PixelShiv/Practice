@@ -1,19 +1,16 @@
 package com.shiva;
 
-import org.junit.Test;
-import static org.junit.Assert.*;
+import com.example.App;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AppTest {
 
     @Test
-    public void testGetMessage() {
-        // Expected output
-        String expected = "Hello, Jenkins + Maven!";
-        
-        // Actual output from App
-        String actual = App.getMessage();  // App.java must have a static getMessage() method
-        
-        // Assertion
-        assertEquals("App.getMessage() should return the expected string", expected, actual);
+    public void testAppCreation() {
+        App app = new App();
+        assertNotNull(app, "App object should not be null");
+        assertEquals("MyApp", app.getName(), "App name should be 'MyApp'");
     }
 }
