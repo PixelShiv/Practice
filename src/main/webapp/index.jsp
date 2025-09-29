@@ -1,4 +1,10 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" import="java.util.Date, java.text.SimpleDateFormat" %>
+<%
+    String name = "Shiva"; // Your name
+    String quote = "The best way to predict the future is to create it."; // Pleasant quote
+    SimpleDateFormat sdf = new SimpleDateFormat("EEEE, MMMM dd, yyyy HH:mm:ss");
+    String currentTime = sdf.format(new Date());
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,12 +40,21 @@
         .button:hover {
             background-color: #e68900;
         }
+        .footer {
+            margin-top: 50px;
+            font-size: 1em;
+            color: #f0f0f0;
+        }
     </style>
 </head>
 <body>
-    <h1>Welcome to My Java App!</h1>
+    <h1>Welcome to My Java App, <%= name %>!</h1>
     <p>🚀 This is a simple web application powered by JSP & Tomcat.</p>
+    <p>💡 Quote of the day: "<%= quote %>"</p>
+    <p>🕒 Current time and date: <%= currentTime %></p>
     <a href="#" class="button">Click Me!</a>
+    <div class="footer">
+        Made with ❤️ by <%= name %>
+    </div>
 </body>
 </html>
-
