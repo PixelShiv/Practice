@@ -27,10 +27,17 @@ pipeline {
 
         stage('Deploy to Tomcat') {
             steps {
-                echo "Deploying WAR to Tomcat..."
+                echo "Deploying WAR to Tomcat with ownership handling..."
                 sh """
-                scp -o StrictHostKeyChecking=no target/${WAR_NAME} \
-                    ${TOMCAT_USER}@${TOMCAT_HOST}:${TOMCAT_PATH}
+                # Temporarily give ec2-user permission to write
+                ssh ${TOMCAT_USER}@${TOMCAT_HOST} "sudo chown ec2-user:ec2-user ${TOMCAT_PATH}"
+
+                # Copy WAR
+                scp -o StrictHostKeyChecking=no target/${WAR_NAME} ${TOMCAT_USER}@${TOMCAT_HOST}:${TOMCAT_PATH}
+
+                # Change ownership back to tomcat
+                ssh ${TOMCAT_USER}@${TOMCAT_HOST} "sudo chown -R tomcat:tomcat ${TOMCAT_PATH}${WAR_NAME} && \
+                                                  if [ -d ${TOMCAT_PATH}app ]; then sudo rm -rf ${TOMCAT_PATH}app; fi"
                 """
             }
         }
