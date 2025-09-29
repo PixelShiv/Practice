@@ -23,22 +23,49 @@
             <version>5.10.0</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- Servlet API (provided by Tomcat) -->
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>6.0.0</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
+        <finalName>app</finalName> <!-- WAR will be app.war -->
         <plugins>
             <!-- Compiler Plugin -->
             <plugin>
-                  <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-war-plugin</artifactId>
-                     <version>3.3.2</version> <!-- latest stable version -->
-                      <configuration>
-                          <source>${maven.compiler.source}</source>
-                          <target>${maven.compiler.target}</target>
-                          <failOnMissingWebXml>false</failOnMissingWebXml> <!-- added -->
-                      </configuration>
-                  </plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                </configuration>
+            </plugin>
 
+            <!-- WAR Plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.3.2</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <webResources>
+                        <!-- Include index.jsp if not under src/main/webapp -->
+                        <resource>
+                            <directory>src/main/webapp</directory>
+                            <includes>
+                                <include>**/*.jsp</include>
+                                <include>**/*.html</include>
+                            </includes>
+                        </resource>
+                    </webResources>
+                </configuration>
+            </plugin>
 
             <!-- Surefire Plugin to run JUnit 5 tests -->
             <plugin>
