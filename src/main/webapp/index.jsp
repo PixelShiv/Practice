@@ -12,20 +12,22 @@
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f4f6f8;
+            background: linear-gradient(to right, #1e3c72, #2a5298);
             color: #333;
             margin: 0;
             padding: 0;
         }
         header {
-            background: #1f2937;
+            background: linear-gradient(90deg, #f12711, #f5af19);
             color: #fff;
             padding: 20px;
             text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
         header h1 {
             margin: 0;
             font-size: 2.5em;
+            text-shadow: 2px 2px rgba(0,0,0,0.2);
         }
         header p {
             font-size: 1.1em;
@@ -38,41 +40,46 @@
             margin: 20px;
         }
         .card {
-            background: #fff;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
             width: 300px;
             margin: 15px;
             padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            transition: transform 0.2s;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
         }
         .card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.3);
         }
         .card h2 {
             margin-top: 0;
-            color: #1f2937;
-            font-size: 1.5em;
+            color: #fff;
+            font-size: 1.6em;
+            text-shadow: 1px 1px rgba(0,0,0,0.2);
         }
         .card ul {
             padding-left: 20px;
         }
         .card ul li {
             margin: 10px 0;
+            font-weight: bold;
         }
         .card a {
-            color: #2563eb;
-            text-decoration: none;
+            color: #fff;
+            text-decoration: underline;
         }
         .card a:hover {
-            text-decoration: underline;
+            color: #000;
         }
         footer {
             text-align: center;
             padding: 20px;
-            background: #1f2937;
+            background: linear-gradient(90deg, #f12711, #f5af19);
             color: #fff;
+            font-weight: bold;
             margin-top: 40px;
+            box-shadow: 0 -4px 10px rgba(0,0,0,0.2);
         }
     </style>
 </head>
@@ -133,7 +140,7 @@
     </div>
 
     <footer>
-        Made with ❤️ by <%= name %> | Last updated: <%= currentTime %>
+        Created by <%= name %> | Last updated: <%= currentTime %>
     </footer>
 </body>
 </html>
