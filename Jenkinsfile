@@ -4,7 +4,7 @@ pipeline {
     environment {
         GIT_REPO     = 'https://github.com/PixelShiv/Practice.git'
         BRANCH       = 'master'
-        WAR_NAME     = 'yourapp.war'          // adjust to your actual WAR file name in target/
+        WAR_NAME     = 'my-app-1.0-SNAPSHOT.war'          // adjust to your actual WAR file name in target/
         TOMCAT_USER  = 'ec2-user'
         TOMCAT_HOST  = 'ec2-98-89-40-229.compute-1.amazonaws.com'
         TOMCAT_PATH  = '/opt/tomcat/webapps/'
