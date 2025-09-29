@@ -4,10 +4,10 @@ pipeline {
     environment {
         GIT_REPO     = 'https://github.com/PixelShiv/Practice.git'
         BRANCH       = 'master'
-        WAR_NAME     = 'yourapp.war'          // Adjust this to your WAR name
-        TOMCAT_USER  = 'tomcatuser'           // Tomcat server SSH user
-        TOMCAT_HOST  = 'your.server.ip'       // Tomcat server host/IP
-        TOMCAT_PATH  = '/opt/tomcat/webapps/' // Path to Tomcat's webapps directory
+        WAR_NAME     = 'yourapp.war'          // adjust to your actual WAR file name in target/
+        TOMCAT_USER  = 'ec2-user'
+        TOMCAT_HOST  = 'ec2-98-89-40-229.compute-1.amazonaws.com'
+        TOMCAT_PATH  = '/opt/tomcat/webapps/'
     }
 
     stages {
@@ -29,7 +29,8 @@ pipeline {
             steps {
                 echo "Deploying WAR to Tomcat..."
                 sh """
-                scp target/${WAR_NAME} ${TOMCAT_USER}@${TOMCAT_HOST}:${TOMCAT_PATH}
+                scp -o StrictHostKeyChecking=no target/${WAR_NAME} \
+                    ${TOMCAT_USER}@${TOMCAT_HOST}:${TOMCAT_PATH}
                 """
             }
         }
@@ -37,10 +38,10 @@ pipeline {
 
     post {
         success {
-            echo 'Deployment successful! WAR deployed to Tomcat.'
+            echo '✅ Deployment successful! WAR deployed to Tomcat.'
         }
         failure {
-            echo 'Build or Deployment failed!'
+            echo '❌ Build or Deployment failed!'
         }
     }
 }
