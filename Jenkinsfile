@@ -4,7 +4,7 @@ pipeline {
     environment {
         GIT_REPO     = 'https://github.com/PixelShiv/Practice.git'
         BRANCH       = 'master'
-        WAR_NAME     = 'app.war'          // matches the actual WAR produced by Maven
+        WAR_NAME     = 'app.war'          // matches the WAR produced by Maven
         TOMCAT_USER  = 'ec2-user'
         TOMCAT_HOST  = 'ec2-98-89-40-229.compute-1.amazonaws.com'
         TOMCAT_PATH  = '/opt/tomcat/webapps/'
@@ -27,17 +27,17 @@ pipeline {
 
         stage('Deploy to Tomcat') {
             steps {
-                echo "Deploying WAR to Tomcat with ownership handling..."
+                echo "Deploying WAR to Tomcat safely..."
                 sh """
-                # Temporarily give ec2-user permission to write
-                ssh ${TOMCAT_USER}@${TOMCAT_HOST} "sudo chown ec2-user:ec2-user ${TOMCAT_PATH}"
+                # Copy WAR to temporary location on remote host
+                scp -o StrictHostKeyChecking=no target/${WAR_NAME} ${TOMCAT_USER}@${TOMCAT_HOST}:/home/${TOMCAT_USER}/${WAR_NAME}
 
-                # Copy WAR
-                scp -o StrictHostKeyChecking=no target/${WAR_NAME} ${TOMCAT_USER}@${TOMCAT_HOST}:${TOMCAT_PATH}
-
-                # Change ownership back to tomcat
-                ssh ${TOMCAT_USER}@${TOMCAT_HOST} "sudo chown -R tomcat:tomcat ${TOMCAT_PATH}${WAR_NAME} && \
-                                                  if [ -d ${TOMCAT_PATH}app ]; then sudo rm -rf ${TOMCAT_PATH}app; fi"
+                # Move WAR to Tomcat webapps with sudo, remove old exploded app, and set ownership
+                ssh ${TOMCAT_USER}@${TOMCAT_HOST} "
+                    sudo mv /home/${TOMCAT_USER}/${WAR_NAME} ${TOMCAT_PATH}${WAR_NAME} && \
+                    if [ -d ${TOMCAT_PATH}app ]; then sudo rm -rf ${TOMCAT_PATH}app; fi && \
+                    sudo chown -R tomcat:tomcat ${TOMCAT_PATH}${WAR_NAME}
+                "
                 """
             }
         }
